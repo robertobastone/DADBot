@@ -14,7 +14,7 @@ from dateutil.parser import parse as parse_date #CONVERT UNICODE INTO DATETIME
 import sys # better management of the exceptions
 
 # timezone
-utc = "+00:00"
+utc = "+00:00" 
 # thanking
 thanking_site = 'https://sunrise-sunset.org/api'
 thanking_hashtags = "\n #Python #pythonlearning"
