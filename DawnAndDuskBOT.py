@@ -40,7 +40,6 @@ def callSunriseSunsetApi():
             jsonResponse = resp.json()
             sunrise = parse_date(jsonResponse['results']['sunrise']).time()
             sunset = parse_date(jsonResponse['results']['sunset']).time()
-            date = datetime.ni
             main_message = str(datetime.now().time())[:8] + " Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
             return main_message
     except Exception as e:
