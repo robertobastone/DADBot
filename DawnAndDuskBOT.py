@@ -1,7 +1,7 @@
 ######################### LIBRARIES #########################
 
 import tweepy # TWIITER INTEGRATION
-import credentials # GET CREDENTIALS
+# import credentials # GET CREDENTIALS
 import requests # CALL GET
 from datetime import datetime, timezone # GET TIME
 from dateutil.parser import parse as parse_date #CONVERT UNICODE INTO DATETIME
