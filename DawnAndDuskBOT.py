@@ -6,7 +6,8 @@ import requests # CALL GET
 from datetime import datetime, timezone # GET TIME
 from dateutil.parser import parse as parse_date #CONVERT UNICODE INTO DATETIME
 import sys # better management of the exceptions
-
+import os
+from os import environ # help heroku use credentials
 # timezone
 utc = "+00:00"
 # thanking
@@ -21,50 +22,61 @@ longitude = 'lng=14.2681&'
 date = 'date=today&'
 timeFormat = 'formatted=0'
 
+# CALLING SERVICE
+def callSunriseSunsetApi():
+    try:
+        resp = requests.get(base_url+latitude+longitude+date+timeFormat)
+        # MANAGING RESPONSE
+        if resp.status_code != 200:
+            print('GET tasks status: {}'.format(resp.status_code))
+        else:
+            print('GET tasks status {}'.format(resp.status_code))
+            jsonResponse = resp.json()
+            sunrise = parse_date(jsonResponse['results']['sunrise']).time()
+            sunset = parse_date(jsonResponse['results']['sunset']).time()
+            main_message = "Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
+            return main_message
+    except Exception as e:
+        print("The following exception was catched: " + str(e))
+        return "KO"
+
+def callTwitter(main_message):
+    ##### GENERATING TWITTER REQUEST
+    CONSUMER_KEY = environ['YOUR_CONSUMER_KEY']
+    CONSUMER_SECRET = environ['YOUR_CONSUMER_SECRET']
+    ACCESS_KEY = environ['YOUR_ACCESS_KEY']
+    ACCESS_SECRET = environ['YOUR_ACCESS_SECRET']
+    # Authenticate to Twitter: locally via external file
+    # auth = tweepy.OAuthHandler(credentials.consumer_key,credentials.consumer_secret)
+    # auth.set_access_token(credentials.access_key,credentials.access_token)
+    # Authenticate to Twitter: via environment variables
+    auth = tweepy.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_KEY,ACCESS_SECRET)
+    api = tweepy.API(auth)
+    try:
+        if api.verify_credentials() == False:
+            print("The user credentials are invalid.")
+        else:
+            print("The user credentials are valid.")
+            api.update_status(main_message + thanking_message)
+            print("Tweeting... DADBot")
+    except Exception as e:
+        print("The following exception was catched: " + str(e))
+
+'''
 class DADBot:
     def __init__(self):
         print("Initializing... DADbot")
+'''
 
+'''
     def main(self):
-        try:
-            print("Starting... DADbot")
-            main_message = self.callSunriseSunsetApi()
-            print("Message is... " + main_message)
-            if main_message != "KO":
-                self.callTwitter(main_message)
-        except Exception as e:
-            print("The following exception was catched: " + str(e))
-
-    # CALLING SERVICE
-    def callSunriseSunsetApi(self):
-        try:
-            resp = requests.get(base_url+latitude+longitude+date+timeFormat)
-            # MANAGING RESPONSE
-            if resp.status_code != 200:
-                print('GET tasks status: {}'.format(resp.status_code))
-            else:
-                print('GET tasks status {}'.format(resp.status_code))
-                jsonResponse = resp.json()
-                sunrise = parse_date(jsonResponse['results']['sunrise']).time()
-                sunset = parse_date(jsonResponse['results']['sunset']).time()
-                main_message = "Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
-                return main_message
-        except Exception as e:
-            print("The following exception was catched: " + str(e))
-            return "KO"
-
-    def callTwitter(self,main_message):
-        ##### GENERATING TWITTER REQUEST
-        # Authenticate to Twitter
-        auth = tweepy.OAuthHandler(credentials.consumer_key,credentials.consumer_secret)
-        auth.set_access_token(credentials.access_key,credentials.access_token)
-        api = tweepy.API(auth)
-        try:
-            if api.verify_credentials() == False:
-                print("The user credentials are invalid.")
-            else:
-                print("The user credentials are valid.")
-                api.update_status(main_message + thanking_message)
-                print("Tweeting... DADBot")
-        except Exception as e:
-            print("The following exception was catched: " + str(e))
+'''
+try:
+    print("Starting... DADbot")
+    main_message = callSunriseSunsetApi()
+    print("Message is... " + main_message)
+    if main_message != "KO":
+        callTwitter(main_message)
+except Exception as e:
+    print("The following exception was catched: " + str(e))
