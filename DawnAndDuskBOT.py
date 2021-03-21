@@ -42,10 +42,10 @@ def callSunriseSunsetApi():
 
 def callTwitter(main_message):
     ##### GENERATING TWITTER REQUEST
-    CONSUMER_KEY = environ['YOUR_CONSUMER_KEY']
-    CONSUMER_SECRET = environ['YOUR_CONSUMER_SECRET']
-    ACCESS_KEY = environ['YOUR_ACCESS_KEY']
-    ACCESS_SECRET = environ['YOUR_ACCESS_SECRET']
+    CONSUMER_KEY = environ['TWITTER_CONSUMER_KEY']
+    CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
+    ACCESS_KEY = environ['TWIITER_ACCESS_KEY']
+    ACCESS_SECRET = environ['TWITTER_ACCESS_SECRET']
     # Authenticate to Twitter: locally via external file
     # auth = tweepy.OAuthHandler(credentials.consumer_key,credentials.consumer_secret)
     # auth.set_access_token(credentials.access_key,credentials.access_token)
