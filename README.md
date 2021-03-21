@@ -1,7 +1,7 @@
 # DADBot
 
 Dawn And Dusk bot (DADBot).
-The hours are retrieved from https://api.sunrise-sunset.org that I want to thank.
+I want to thank https://api.sunrise-sunset.org for providing the API to retrieve the sunrise and sunset times.
 
 # Milestones
 1. March, 20 2021: DADBot 1.00
