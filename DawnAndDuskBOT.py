@@ -2,14 +2,20 @@
 
 import tweepy # TWIITER INTEGRATION
 # import credentials # GET CREDENTIALS
+import time # sleep time between executions
 import requests # CALL GET
 from datetime import datetime, timezone # GET TIME
 from dateutil.parser import parse as parse_date #CONVERT UNICODE INTO DATETIME
 import sys # better management of the exceptions
 import os
 from os import environ # help heroku use credentials
+
 # timezone
 utc = "+00:00"
+
+# sleepTime
+sleepTime = 60
+
 # thanking
 thanking_site = 'https://sunrise-sunset.org/api'
 thanking_hashtags = "\n #Python #pythonlearning"
@@ -34,7 +40,8 @@ def callSunriseSunsetApi():
             jsonResponse = resp.json()
             sunrise = parse_date(jsonResponse['results']['sunrise']).time()
             sunset = parse_date(jsonResponse['results']['sunset']).time()
-            main_message = "Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
+            date = datetime.ni
+            main_message = str(datetime.now().time())[:8] + " Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
             return main_message
     except Exception as e:
         print("The following exception was catched: " + str(e))
@@ -73,10 +80,12 @@ class DADBot:
     def main(self):
 '''
 try:
-    print("Starting... DADbot")
-    main_message = callSunriseSunsetApi()
-    print("Message is... " + main_message)
-    if main_message != "KO":
-        callTwitter(main_message)
+    while True:
+        print("Starting... DADbot")
+        main_message = callSunriseSunsetApi()
+        print("Message is... " + main_message)
+        if main_message != "KO":
+            callTwitter(main_message)
+        time.sleep(sleepTime)
 except Exception as e:
     print("The following exception was catched: " + str(e))
