@@ -14,7 +14,7 @@ from os import environ # help heroku use credentials
 utc = "+00:00"
 
 # sleepTime
-sleepTime = 60
+sleepTime = 60*60*24 # 1 day
 
 # thanking
 thanking_site = 'https://sunrise-sunset.org/api'
@@ -40,7 +40,8 @@ def callSunriseSunsetApi():
             jsonResponse = resp.json()
             sunrise = parse_date(jsonResponse['results']['sunrise']).time()
             sunset = parse_date(jsonResponse['results']['sunset']).time()
-            main_message = str(datetime.now().time())[:8] + " Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
+            # main_message = str(datetime.now().time())[:8] + " Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
+            main_message = " Today, in Napoli (Italia), the sun will rise at " + str(sunrise) + utc + " and the sun will set at " + str(sunset) + utc
             return main_message
     except Exception as e:
         print("The following exception was catched: " + str(e))
