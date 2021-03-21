@@ -1,9 +1,3 @@
-################################################### INTRO
-
-author = 'Roberto Bastone '
-
-version = 1.00
-
 ######################### LIBRARIES #########################
 
 import tweepy # TWIITER INTEGRATION
