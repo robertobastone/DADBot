@@ -1,7 +1,6 @@
 ######################### LIBRARIES #########################
 
 import tweepy # TWIITER INTEGRATION
-# import credentials # GET CREDENTIALS
 import time # sleep time between executions
 import requests # CALL GET
 from datetime import datetime, timezone # GET TIME
@@ -11,7 +10,7 @@ import os
 from os import environ # help heroku use credentials
 
 # timezone
-utc = "+00:00"
+utc = " GMT"
 
 # sleepTime
 sleepTime = 60*60*24 # 1 day
@@ -53,9 +52,6 @@ def callTwitter(main_message):
     CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
     ACCESS_KEY = environ['TWIITER_ACCESS_KEY']
     ACCESS_SECRET = environ['TWITTER_ACCESS_SECRET']
-    # Authenticate to Twitter: locally via external file
-    # auth = tweepy.OAuthHandler(credentials.consumer_key,credentials.consumer_secret)
-    # auth.set_access_token(credentials.access_key,credentials.access_token)
     # Authenticate to Twitter: via environment variables
     auth = tweepy.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY,ACCESS_SECRET)
@@ -70,15 +66,6 @@ def callTwitter(main_message):
     except Exception as e:
         print("The following exception was catched: " + str(e))
 
-'''
-class DADBot:
-    def __init__(self):
-        print("Initializing... DADbot")
-'''
-
-'''
-    def main(self):
-'''
 try:
     while True:
         print("Starting... DADbot")
