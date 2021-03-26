@@ -63,7 +63,7 @@ def callTwitter(main_message):
         else:
             print("The user credentials are valid.")
             tweeting = api.update_status(main_message + thanking_message)
-            print("Tweeting: " + tweeting)
+            print("Tweeting: " + str(tweeting))
     except Exception as e:
         print("callTwitter - The following exception was catched: " + str(e))
         time.sleep(sleepTimeRetry)
