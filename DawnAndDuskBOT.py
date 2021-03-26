@@ -65,7 +65,9 @@ def callTwitter(main_message):
             api.update_status(main_message + thanking_message)
     except tweepy.error.TweepError as e:
         print("callTwitter - The following exception was catched: " + str(e))
-        if(e.api_code == '187'):  ### 187 means duplicate
+        errorcode = str(e.api_code)
+        print("Error code: " + errorcode)
+        if(errorcode == '187'):  ### 187 means duplicate
             print("callTwitter - we have to wait")
             time.sleep(sleepTimeRetry)
             print("callTwitter - the wait is over")
