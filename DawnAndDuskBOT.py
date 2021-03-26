@@ -15,7 +15,7 @@ cet = pytz.timezone('Europe/Rome')
 
 # sleepTime
 sleepTime = 60*60*24 # 1 day
-sleepTimeRetry = 60*30 # 1/2 hour
+sleepTimeRetry = 60 # 1/2 hour
 
 # thanking
 thanking_site = 'https://sunrise-sunset.org/api'
@@ -66,10 +66,11 @@ def callTwitter(main_message):
             print("Tweeting: " + str(tweeting))
     except Exception as e:
         print("callTwitter - The following exception was catched: " + str(e))
-        print("callTwitter - we have to wait")
-        time.sleep(sleepTimeRetry)
-        print("callTwitter - the wait is over")
-        callTwitter(main_message)
+        if(e['code'] == '187'):
+            print("callTwitter - we have to wait")
+            time.sleep(sleepTimeRetry)
+            print("callTwitter - the wait is over")
+            callTwitter(main_message)
 
 def getSunriseSunsetTimeString(datetime_sun,event_sun):
     try:
