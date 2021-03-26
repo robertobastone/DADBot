@@ -66,6 +66,7 @@ def callTwitter(main_message):
             print("Tweeting: " + str(tweeting))
     except Exception as e:
         print("callTwitter - The following exception was catched: " + str(e))
+        print("callTwitter - we have to wait")
         time.sleep(sleepTimeRetry)
         print("callTwitter - the wait is over")
         callTwitter(main_message)
