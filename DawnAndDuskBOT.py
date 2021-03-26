@@ -62,15 +62,17 @@ def callTwitter(main_message):
             print("The user credentials are invalid.")
         else:
             print("The user credentials are valid.")
-            tweeting = api.update_status(main_message + thanking_message)
-            print("Tweeting: " + str(tweeting))
-    except Exception as e:
+            api.update_status(main_message + thanking_message)
+    except tweepy.error.TweepError as e:
         print("callTwitter - The following exception was catched: " + str(e))
-        if(e['code'] == '187'):
+        if(e.api_code == '187'):  ### 187 means duplicate
             print("callTwitter - we have to wait")
             time.sleep(sleepTimeRetry)
             print("callTwitter - the wait is over")
             callTwitter(main_message)
+    except Exception as e:
+        print("callTwitter - The following exception was catched: " + str(e))
+        print("Breaking from loop. Better luck next time.")
 
 def getSunriseSunsetTimeString(datetime_sun,event_sun):
     try:
