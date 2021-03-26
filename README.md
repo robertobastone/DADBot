@@ -18,3 +18,6 @@ I want to thank https://api.sunrise-sunset.org for providing the API to retrieve
 - OOP version
 ## Version 1.02 (March, 21 2021)
 - Functional programming (FP) to facilitate integration with Heroku
+## Version 1.03 (March 26 2021)
+- Hours from GMT to CET via pyzt
+- "set/will set" and "rose/will rise" choosen dinamically accordingly after comparison with now()
