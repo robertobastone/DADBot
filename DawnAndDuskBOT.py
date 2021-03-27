@@ -1,6 +1,6 @@
 ######################### LIBRARIES #########################
 
-import tweepy # TWIITER INTEGRATION
+import tweepy # TWITTER INTEGRATION
 import time # sleep time between executions
 import requests # CALL GET
 from datetime import datetime # GET TIME
@@ -51,6 +51,7 @@ def callSunriseSunsetApi():
 
 def callTwitter(main_message):
     ##### GENERATING TWITTER REQUEST
+    # Credentials
     CONSUMER_KEY = environ['TWITTER_CONSUMER_KEY']
     CONSUMER_SECRET = environ['TWITTER_CONSUMER_SECRET']
     ACCESS_KEY = environ['TWIITER_ACCESS_KEY']
@@ -69,11 +70,14 @@ def callTwitter(main_message):
         print("callTwitter - The following exception was catched: " + str(e))
         errorcode = str(e.api_code)
         print("Error code: " + errorcode)
+        ### as long as we use heroku schedulers add-on, we don't need it
+        '''
         if(errorcode == '187'):  ### 187 means duplicate
             print("callTwitter - we have to wait")
             time.sleep(sleepTimeRetry)
             print("callTwitter - the wait is over")
             callTwitter(main_message)
+        '''
     except Exception as e:
         print("callTwitter - The following exception was catched: " + str(e))
         print("Breaking from loop. Better luck next time.")
