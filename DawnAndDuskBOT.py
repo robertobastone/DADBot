@@ -101,7 +101,7 @@ try:
         main_message = callSunriseSunsetApi()
         print("Message is... " + main_message)
         if main_message != "KO":
-            #callTwitter(main_message)
+            callTwitter(main_message)
             print("Tweeting completed... DADbot")
         #time.sleep(sleepTime)
 except Exception as e:
